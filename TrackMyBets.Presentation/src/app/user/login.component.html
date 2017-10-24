@@ -11,10 +11,10 @@
             <p class="text-center m-t-md">Please login into your account.</p>
 
               <div class="form-group">
-                <input class="form-control" placeholder="Nick" required="">
+                <input [(ngModel)]="userLoginModel.Nick" class="form-control" placeholder="Nick" required="">
               </div>
               <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" required="">
+                <input [(ngModel)]="userLoginModel.Password" type="password" class="form-control" placeholder="Password" required="">
               </div>
               <button (click)="login()" type="button" class="btn btn-success btn-block">Login</button>
 
