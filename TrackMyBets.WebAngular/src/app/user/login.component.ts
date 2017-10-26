@@ -11,7 +11,6 @@ import { UserLoginModel } from './user.model';
  
 export class LoginComponent implements OnInit {
     userLoginModel: UserLoginModel;
-    name: string = 'dasdsdasdadasda';
     loading = false;
     returnUrl: string;
  
@@ -19,25 +18,24 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private userService: UserService
-    ) { }
- 
-        ngOnInit() {
+    ) {
+        this.userLoginModel = new UserLoginModel();
+    }
 
-            this.userLoginModel = new UserLoginModel();
-        this.userService.logout();
+    ngOnInit() {
+        this.userService.logout();
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    }
- 
-    login() {
-                this.loading = true;
-                this.name;
-        this.userService.login(this.userLoginModel)
-            .subscribe(
-                data => {
-                    this.router.navigate([this.returnUrl]);
-                },
-                error => {
-                    this.loading = false;
-                });
-    }
+    }
+
+    login() {
+        this.loading = true;
+        this.userService.login(this.userLoginModel).subscribe(
+            data => {
+                this.router.navigate([this.returnUrl]);
+            },
+            erro => {
+                this.loading = false;
+            }
+        );
+    }
 }
