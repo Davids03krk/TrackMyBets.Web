@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import { CommunicationRequestArgs, CommunicationVerbs, Body } from './communication-request-args.model';
 import { CommunicationServer } from './communication.server';
 
-declare var jQuery: JQueryStatic;
+//declare var jQuery: JQueryStatic;
 
 @Injectable()
 export class CommunicationService {
@@ -32,28 +32,28 @@ export class CommunicationService {
         return this._communicationServer.get(requestArgs);
     }
 
-    public getSync(requestArgs: CommunicationRequestArgs): Observable<Response> {
-        return Observable.create((observer: Subject<Response>) => {
-            function callback(res: any) {
-                observer.next(res);
-                observer.complete();
-            }
+    //public getSync(requestArgs: CommunicationRequestArgs): Observable<Response> {
+    //    return Observable.create((observer: Subject<Response>) => {
+    //        function callback(res: any) {
+    //            observer.next(res);
+    //            observer.complete();
+    //        }
 
-            let body = new Body();
-            if (requestArgs.body != null) {
-                body = requestArgs.body;
-            }
+    //        let body = new Body();
+    //        if (requestArgs.body != null) {
+    //            body = requestArgs.body;
+    //        }
 
-            jQuery.ajax({
-                url: requestArgs.url,
-                cache: requestArgs.cache,
-                dataType: requestArgs.contentType,
-                success: callback,
-                async: false,
-                data: body.value,
-            });
-        });
-    }
+    //        jQuery.ajax({
+    //            url: requestArgs.url,
+    //            cache: requestArgs.cache,
+    //            dataType: requestArgs.contentType,
+    //            success: callback,
+    //            async: false,
+    //            data: body.value,
+    //        });
+    //    });
+    //}
 
 
     public put(requestArgs: CommunicationRequestArgs): Observable<Response> {

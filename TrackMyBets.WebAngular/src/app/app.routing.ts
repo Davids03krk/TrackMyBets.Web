@@ -9,9 +9,9 @@ import { LoginComponent } from './user/login.component';
 
 const appRoutes: Routes = [
     {
-        path: '', component: HomeComponent, canActivate: [AuthGuard], children: [
+        path: '', component: HomeComponent, canActivate: [AuthGuard]//, children: [
 
-        ]
+        //]
     },
     { path: RoutingConfig.LOGIN_USER, component: LoginComponent }
 ];

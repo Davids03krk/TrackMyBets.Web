@@ -10,13 +10,18 @@
             <a class="logo-name text-lg text-center">TrackMyBets</a>
             <p class="text-center m-t-md">Please login into your account.</p>
 
+            <div *ngIf="msgUserNoAuth" class="fa-item alert alert-danger" role="alert">
+              <i class="fa fa-warning"></i>
+              <span>Su Nick y/o Password no son correctos.</span>
+            </div>
+
               <div class="form-group">
-                <input [(ngModel)]="userLoginModel.Nick" type="text" class="form-control" placeholder="Nick" required>
+                <input [(ngModel)]="userLoginModel.nick" type="text" class="form-control" placeholder="Nick" />
               </div>
               <div class="form-group">
-                <input [(ngModel)]="userLoginModel.Password" type="password" class="form-control" placeholder="Password" required="" />
+                <input [(ngModel)]="userLoginModel.password" type="password" class="form-control" placeholder="Password" />
               </div>
-              <button (click)="login()" type="button" class="btn btn-success btn-block">Login</button>
+              <button (click)="login()" [disabled]="!(userLoginModel.nick && userLoginModel.password)" type="button" class="btn btn-success btn-block">Login</button>
 
               <p class="text-center m-t-xs text-sm">Do not have an account?</p>
               <a (click)="register()" class="btn btn-default btn-block m-t-md">Create an account</a>

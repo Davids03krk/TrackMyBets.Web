@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
+import { LocalStorageService } from '../utils/storage/local-storage.service'
+
 @Injectable()
 export class AuthGuard implements CanActivate {
     
     constructor(
-        private router: Router
+        private _router: Router,
+        private _localStorageService: LocalStorageService
     ) {
 
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (localStorage.getItem('currentUser')) {
+        if (this._localStorageService.getDataObject('userAuth'))
             return true;
-        }
 
-        this.router.navigate(['login'], { queryParams: { returnUrl: state.url } });
+        this._router.navigate(['login'], { queryParams: { returnUrl: state.url } });
+
         return false;
     }
 }

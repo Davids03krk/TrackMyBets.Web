@@ -52,6 +52,6 @@ export class LocalStorageService {
     }
 
     isLocalStorageAvailable(): boolean {
-        return Modernizr.localStorage;
+        return Modernizr.localstorage;
     }
 }

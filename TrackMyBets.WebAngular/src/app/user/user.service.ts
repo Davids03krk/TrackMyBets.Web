@@ -4,52 +4,40 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
 import { AppConfig } from '../../config/app.config';
-import { UserLoginModel, UserModel } from './user.model';
+import { LocalStorageService } from '../shared/utils/storage/local-storage.service'
+import { CommunicationService } from '../shared/utils/communication/communication.service';
+import { UserLoginModel, UserModel, UserAuthModel } from './user.model';
 
 @Injectable()
 export class UserService {
-
     constructor(
-        private _http: Http
+        private _http: Http,
+        private _localStorageService: LocalStorageService,
+        private _communicationService: CommunicationService
     ) {
 
     }
     
-    login(userLogin: UserLoginModel) {
-        return this._http.post(AppConfig.urlApi + '/User/Login', { userLogin })
-            .map((response: Response) => {
-                let user = response.json();
-                if (user && user.token) {
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                }
-            });
+    login(userLogin: UserLoginModel): Observable<UserAuthModel> {
+        let body = { name: "userLogin", value: userLogin };
+        let url = AppConfig.urlApi + '/User/Login';
+
+        let requestArgs = this._communicationService.createRequestArgsSync(url, body, null);
+
+        return this._communicationService.post(requestArgs).map(
+            response => response.json() as UserAuthModel
+        );
     }
 
     logout() {
-        localStorage.removeItem('currentUser');
+        this._localStorageService.removeData('userAuth');
     }
     
-    getById(idUser: string) {
-        return this._http.get(AppConfig.urlApi + '/User/GetById/' + idUser, this.jwt()).map((response: Response) => response.json());
-    }
-
-    create(userModel: UserModel) {
-        return this._http.post(AppConfig.urlApi + '/User/Register', userModel, this.jwt());
-    }
-
-    update(userModel: UserModel) {
-        return this._http.put(AppConfig.urlApi + '/User/Update/' + userModel.IdUser, userModel, this.jwt());
-    }
-
-    delete(idUser: string) {
-        return this._http.delete(AppConfig.urlApi + '/User/Delete/' + idUser, this.jwt());
-    }
-    
-    private jwt() {
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-            return new RequestOptions({ headers: headers });
-        }
-    }
+    //private jwt() {
+    //    let currentUser = JSON.parse(this._localStorageService.getDataObject('userAuth'));
+    //    if (currentUser && currentUser.token) {
+    //        let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
+    //        return new RequestOptions({ headers: headers });
+    //    }
+    //}
 }
