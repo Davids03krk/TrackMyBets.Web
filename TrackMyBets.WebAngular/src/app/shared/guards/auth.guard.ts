@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
+import { RoutingConfig } from '../../../config/routing.config'
 import { LocalStorageService } from '../utils/storage/local-storage.service'
 
 @Injectable()
@@ -17,7 +18,7 @@ export class AuthGuard implements CanActivate {
         if (this._localStorageService.getDataObject('userAuth'))
             return true;
 
-        this._router.navigate(['login'], { queryParams: { returnUrl: state.url } });
+        this._router.navigate([RoutingConfig.LOGIN_USER], { queryParams: { returnUrl: state.url } });
 
         return false;
     }

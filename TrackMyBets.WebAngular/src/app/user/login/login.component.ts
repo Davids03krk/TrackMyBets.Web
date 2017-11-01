@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { UserService } from './user.service';
-import { LocalStorageService } from '../shared/utils/storage/local-storage.service'
-import { UserLoginModel, UserModel, UserAuthModel } from './user.model';
+import { RoutingConfig } from '../../../config/routing.config';
+import { UserService } from '../user.service';
+import { LocalStorageService } from '../../shared/utils/storage/local-storage.service'
+import { UserLoginModel, UserModel, UserAuthModel } from '../user.model';
 
- 
 @Component({
     moduleId: module.id,
     templateUrl: 'login.component.html'
@@ -13,8 +13,7 @@ import { UserLoginModel, UserModel, UserAuthModel } from './user.model';
  
 export class LoginComponent implements OnInit {
     userLoginModel: UserLoginModel;
-    msgUserNoAuth: boolean;
-    loading: boolean;
+    showMsgUserNoAuth: boolean;
     returnUrl: string;
 
  
@@ -25,8 +24,7 @@ export class LoginComponent implements OnInit {
         private _userService: UserService
     ) {
         this.userLoginModel = new UserLoginModel();
-        this.loading = false;
-        this.msgUserNoAuth = false;
+        this.showMsgUserNoAuth = false;
     }
 
     ngOnInit() {
@@ -35,8 +33,6 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
-        this.loading = true;
-
         this._userService.login(this.userLoginModel).subscribe(
             (userAuth) => {
                 if (userAuth && userAuth.token)
@@ -45,16 +41,23 @@ export class LoginComponent implements OnInit {
                 this._router.navigate([this.returnUrl]);
             },
             (error) => {
-                this.msgUserNoAuth = true;
-                this.userLoginModel.nick = "";
-                this.userLoginModel.password = "";
-                this.loading = false;
+                this.showMsgUserNoAuth = true;
+                this.clearForm();
             }
         );
     }
 
+    goToRegister() {
+        this._router.navigate([RoutingConfig.REGISTER_USER]);
+    }
+
     private unauthorized() {
-        this.msgUserNoAuth = true;
+        this.showMsgUserNoAuth = true;
+        this.userLoginModel.nick = "";
+        this.userLoginModel.password = "";
+    }
+
+    private clearForm() {
         this.userLoginModel.nick = "";
         this.userLoginModel.password = "";
     }

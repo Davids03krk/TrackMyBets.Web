@@ -1,0 +1,84 @@
+<main class="page-content">
+
+  <div class="page-inner" style="min-height:670px !important">
+    <div id="main-wrapper">
+
+      <div class="row">
+        <div class="col-md-3 center">
+          <div class="login-box">
+
+            <a class="logo-name text-lg text-center">TrackMyBets</a>
+            <p class="text-center m-t-md">Por favor, para crear una nueva cuenta introduce los datos.</p>
+
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="msgError" class="fa-item alert alert-danger text-center" role="alert">
+        <span>{{msgError}}</span>
+      </div>
+
+      <div class="row">
+        <div class="col-md-offset-3 col-md-3">
+          <div class="login-box">
+
+            <div class="form-group">
+              <input [(ngModel)]="userModel.nick" type="text" class="form-control" placeholder="Nick" />
+            </div>
+            <div class="form-group">
+              <input [(ngModel)]="userModel.password" type="password" class="form-control" placeholder="Contraseña" />
+            </div>
+            <div class="form-group">
+              <input [(ngModel)]="confirmPassword" type="password" class="form-control" placeholder="Confirmar Contraseña" />
+            </div>
+            <div class="form-group">
+              <input [(ngModel)]="userModel.email" type="email" class="form-control" placeholder="Email" />
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="login-box">
+
+            <div class="form-group">
+              <input [(ngModel)]="userModel.name" type="text" class="form-control" placeholder="Nombre" />
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-6">
+                  <input [(ngModel)]="userModel.surnameFirst" type="text" class="form-control" placeholder="Primer Apellido" />
+                </div>
+                <div class="col-md-6">
+                  <input [(ngModel)]="userModel.surnameSecond" type="text" class="form-control" placeholder="Segundo Apellido" />
+                </div>
+              </div>             
+            </div>          
+            <div class="form-group">
+              <input [(ngModel)]="userModel.Address" type="text" class="form-control" placeholder="Direccion" />
+            </div>
+            <div class="form-group">
+              <input [(ngModel)]="userModel.phone" type="text" class="form-control" placeholder="Telefono" />
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3 center">
+          <div class="login-box">
+
+            <button (click)="register()" type="button" class="btn btn-success btn-block">Registrar</button>
+
+            <p class="text-center m-t-xs text-sm">Ya tienes una cuenta?</p>
+            <a (click)="goToLogin()" class="btn btn-default btn-block m-t-md">Login</a>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+

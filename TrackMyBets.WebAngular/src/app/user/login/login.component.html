@@ -1,0 +1,43 @@
+<main class="page-content">
+
+  <div class="page-inner" style="min-height:670px !important">
+    <div id="main-wrapper">
+
+      <div class="row">
+        <div class="col-md-3 center">
+          <div class="login-box">
+
+            <a class="logo-name text-lg text-center">TrackMyBets</a>
+            <p class="text-center m-t-md">Por favor, para entrar introduce los datos de la cuenta.</p>
+
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="showMsgUserNoAuth" class="fa-item alert alert-danger text-center" role="alert">
+        <span>Su Nick y/o Password no son correctos.</span>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3 center">
+          <div class="login-box">
+
+            <div class="form-group">
+              <input [(ngModel)]="userLoginModel.nick" type="text" class="form-control" placeholder="Nick" />
+            </div>
+            <div class="form-group">
+              <input [(ngModel)]="userLoginModel.password" type="password" class="form-control" placeholder="Contraseña" />
+            </div>
+            <button (click)="login()" [disabled]="!(userLoginModel.nick && userLoginModel.password)" type="button" class="btn btn-success btn-block">Entrar</button>
+
+            <p class="text-center m-t-xs text-sm">Aun no tienes cuenta?</p>
+            <a (click)="goToRegister()" class="btn btn-default btn-block m-t-md">Crear nueva cuenta</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
